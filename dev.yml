@@ -1,0 +1,23 @@
+version: '3.12'
+
+networks:
+  apcct-k22-net:
+
+services:  
+  app_frontend:
+    image: apcct_k22_frontend:latest
+    container_name: apcct_k22_frontend
+    restart: always
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile  
+    ports:
+      - "${CLIENT_PORT}:3000"
+    volumes:
+     - ./frontend:/app/frontend
+     - /app/frontend/node_modules
+    command: npm start
+    networks:
+      - apcct-k22-net
